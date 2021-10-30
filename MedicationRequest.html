@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Scenario 1​">
+    <meta name="description" content="">
+    <meta name="page_type" content="np-template-header-footer-from-plugin">
+    <title>MedicationRequest</title>
+    <link rel="stylesheet" href="nicepage.css" media="screen">
+    <link rel="stylesheet" href="MedicationRequest.css" media="screen">
+    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <script src="setting.js"></script>
+    <script src="HTTP2019.js"></script>
+    <script src="FhirJSON_Resource.js"></script>
+    <script src="CommonJS.js"></script>
+    <meta name="generator" content="Nicepage 3.28.7, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+    
+    
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "",
+		"logo": "images/MITW_logo.png"
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="MedicationRequest">
+    <meta property="og:type" content="website">
+  </head>
+  <body class="u-body"><header class="u-clearfix u-header u-header" id="sec-9c23"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <a href="https://nicepage.com" class="u-image u-logo u-image-1" data-image-width="1093" data-image-height="368">
+          <img src="images/MITW_logo.png" class="u-logo-image u-logo-image-1">
+        </a>
+        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
+          <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
+              <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use></svg>
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><symbol id="menu-hamburger" viewBox="0 0 16 16" style="width: 16px; height: 16px;"><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+</symbol>
+</defs></svg>
+            </a>
+          </div>
+          <div class="u-custom-menu u-nav-container">
+            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Home.html" style="padding: 10px 20px;">Home</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="About.html" style="padding: 10px 20px;">About</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Contact.html" style="padding: 10px 20px;">Contact</a>
+</li></ul>
+          </div>
+          <div class="u-custom-menu u-nav-container-collapse">
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+              <div class="u-inner-container-layout u-sidenav-overflow">
+                <div class="u-menu-close"></div>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Home.html" style="padding: 10px 20px;">Home</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="About.html" style="padding: 10px 20px;">About</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Contact.html" style="padding: 10px 20px;">Contact</a>
+</li></ul>
+              </div>
+            </div>
+            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+          </div>
+        </nav>
+      </div></header>
+    <section class="u-clearfix u-custom-color-1 u-section-1" id="sec-4c52">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">Medication Request Measurement </h2>
+        <p style="font-size: 25px;">
+        Practitioner Id : <input type="text" id="PractitionerId_Box" name="PractitionerId_Box" style="color:black" disabled><br><br>
+        <form id="form_MR" name="form_MR" style="font-size: 20px;">
+        病人種類：
+        <select id="Patient_Type" style="color:black" name="Patient_Type">
+          <option value="inpatient" style="color:black">Inpatient</option>
+          <option value="outpatient" style="color:black">Body Temperature</option>
+          <option value="community" style="color:black">Community</option>
+          <option value="discharge" style="color:black">Discharge</option>
+        </select><br>
+        藥物資訊：
+        藥物名稱：<input type="text" id="DrugName_Box" name="DrugName_Box" style="color:black" >ex:211 Metformin 500g&emsp;&emsp;
+        藥物代碼：<input type="text" id="DrugCode_Box" name="DrugCode_Box" style="color:black" >ex:AC363491G0 
+        <a href="https://www.nhi.gov.tw/QueryN/Query1.aspx">衛生福參考</a><br>
+        病人Id<font  style="color:red">*</font>：<input type="text" id="Patient_Box" name="Patient_Box" style="color:black" >ex:MITWTrack2P1<br>
+        建立日期<font  style="color:red">*</font>：<input type="date" id="authoredOn_Date" name="authoredOn_Date" style="color:black"><br>
+        用藥方法：
+        <select id="Dosage_Type" style="color:black" name="Dosage_Type">
+          <option value="BID" style="color:black" selected>BID</option>
+          <option value="TID" style="color:black">TID</option>
+          <option value="QID" style="color:black">QID</option>
+          <option value="AM" style="color:black">AM</option>
+          <option value="PM" style="color:black">PM</option>
+          <option value="QD" style="color:black">QD	</option>
+          <option value="QOD" style="color:black">QOD</option>
+          <option value="Q1H" style="color:black">every hour</option>
+          <option value="Q2H" style="color:black">every 2 hours	</option>
+          <option value="Q3H" style="color:black">every 3 hours	</option>
+          <option value="Q4H" style="color:black">Q4H</option>
+          <option value="Q6H" style="color:black">Q6H</option>
+          <option value="Q8H" style="color:black">every 8 hours	</option>
+          <option value="BED" style="color:black">every 8 hours		</option>
+          <option value="WK" style="color:black">weekly</option>
+          <option value="MO" style="color:black">monthly</option>
+        </select>
+        <br>
+        用藥路徑：
+        用藥部位：<input type="text" id="DrugMethodPosition_Box" name="DrugMethodPosition_Box" style="color:black" >ex:口服&emsp;&emsp;
+        用藥代碼：<input type="text" id="DrugMethodCode_Box" name="DrugMethodCode_Box" style="color:black" >ex:PO 
+        <a href="http://mtrsoftware.com.tw/Page_L/%E7%94%A8%E6%B3%95%E8%A1%A8.htm">參考</a><br>
+        配藥期間：
+        Start<input type="date" id="Start_Date" name="Start_Date" style="color:black">&emsp;&emsp;
+        End：<input type="date" id="End_Date" name="End_Date" style="color:black">
+        <br>
+        配藥重量：<input type="text" id="Quantity_Box" name="Quantity_Box" style="color:black" >ex:7&emsp;&emsp;
+        重量單位代碼：<input type="text" id="QuantityCode_Box" name="QuantityCode_Box" style="color:black" >ex:TAB 
+        <a href="https://terminology.hl7.org/2.1.0/CodeSystem-v3-orderableDrugForm.html">參考</a><br>
+        配藥天數：<input type="text" id="expectedSupplyDuration_Box" name="expectedSupplyDuration_Box" style="color:black" >ex:7
+        <br>
+        <a id="form_MR" name="form_MR_Button" onclick='Submit_Measurement(this)' class="u-active-palette-3-base u-border-1 u-border-white u-btn u-btn-round u-button-style u-grey-5 u-hover-palette-3-base u-radius-50 u-text-active-white u-text-body-color u-text-hover-white u-btn-1"></a>
+        </form>
+        </p>
+      </div>
+    </section>
+    
+    
+    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-4668"><div class="u-clearfix u-sheet u-sheet-1">
+        <p class="u-small-text u-text u-text-variant u-text-1">Team: TCU106-Indonesia<br>Email: 106316156@gms.tcu.edu.tw
+        </p>
+      </div></footer>
+    <section class="u-backlink u-clearfix u-grey-80">
+    </section>
+
+    <script>
+      if(sessionStorage.getItem("Practitioner_Id")==""){
+        location = 'Scenario_1.html'
+      }
+      var Practitioner_Id = sessionStorage.getItem("Practitioner_Id");
+      var Action = sessionStorage.getItem("Action");
+      var ResourceId = sessionStorage.getItem("ResourceId");
+      document.getElementById("PractitionerId_Box").value = Practitioner_Id;
+      document.getElementsByName("form_MR_Button")[0].innerHTML = Action;
+
+      if(Action=="Update"){
+        HTTPGetData(FHIRrootURL+"/MedicationRequest/"+ResourceId, manageResponseRet, 2)
+      }
+      //----------------------------------------------------------
+      //for : Manage Response from httprequest 
+      function manageResponseRet(ret,count) {
+        if(count==1){
+          alert("Update success!");
+          sessionStorage.setItem("Practitioner_Id", Practitioner_Id);
+          sessionStorage.setItem("Action", "Update");
+          sessionStorage.setItem("ResourceId", ResourceId);
+          window.open("MedicationRequest.html","_self");
+        }
+        else if(count==2){
+          var form=document.getElementById("form_MR");
+          var elements = form.elements;
+          MedicationRequest_Track_3=ret;
+          elements[0].selectedOptions[0].value=MedicationRequest_Track_3.category[0].coding[0].code;
+          elements[1].value=MedicationRequest_Track_3.medicationCodeableConcept.coding[0].display;
+          elements[2].value=MedicationRequest_Track_3.medicationCodeableConcept.coding[0].code;
+          elements[3].value=MedicationRequest_Track_3.subject.reference.split('Patient/')[1];
+          elements[4].value=MedicationRequest_Track_3.authoredOn;
+          elements[5].selectedOptions[0].value=MedicationRequest_Track_3.dosageInstruction[0].timing.code.coding[0].code;
+          elements[6].value=MedicationRequest_Track_3.dosageInstruction[0].route.coding[0].display;
+          elements[7].value=MedicationRequest_Track_3.dosageInstruction[0].route.coding[0].code;
+          elements[8].value=MedicationRequest_Track_3.dispenseRequest.validityPeriod.start;
+          elements[9].value=MedicationRequest_Track_3.dispenseRequest.validityPeriod.end;
+          elements[10].value=MedicationRequest_Track_3.dispenseRequest.quantity.value;
+          elements[11].value=MedicationRequest_Track_3.dispenseRequest.quantity.unit;
+          elements[12].value=MedicationRequest_Track_3.dispenseRequest.expectedSupplyDuration.value;
+        }
+      }
+      //----------------------------------------------------------
+      //----------------------------------------------------------
+      //for : Post body weight vital sign measurement for track-2
+      function EmptyForm(form){
+        var elements = form.elements;
+        for(var i=0;i<form.length;i++){
+          elements[i].value="";
+        }
+      }
+      //----------------------------------------------------------
+    </script>
+  </body>
+</html>
