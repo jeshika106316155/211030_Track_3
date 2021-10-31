@@ -69,9 +69,9 @@
           請選擇Medication Request 查詢條件 ：
           <select id="MedicationRequest_Param" onchange="MedicationRequest_Onchange()" style="color:black" name="MedicationRequest_Param">
             <option style="color:black" selected>All</option>
-            <option style="color:black">Status</option>
-            <option style="color:black">Medication code</option>
-            <option style="color:black">Organization</option>
+            <option style="color:black" value="status">Status</option>
+            <option style="color:black" value="code">Medication code</option>
+            <option style="color:black" value="requester">Organization</option>
           </select>
           Value: <input type="text" id="ParamValue_Box" name="ParamValue_Box" style="color:black" disabled>
           Ex: Status:active , code:AC363491G0, Organization:MITWTrack3Pr1
@@ -118,20 +118,14 @@
           document.getElementById("grid").innerHTML = "";
           var  paramValue = document.getElementById("ParamValue_Box").value;
           var strUrl="";
-          
+          var parameter = document.getElementById("MedicationRequest_Param").options[document.getElementById("MedicationRequest_Param").selectedIndex].value;
           switch(document.getElementById("MedicationRequest_Param").selectedIndex)
           {
             case 0:
               strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id;
               break;
-            case 1:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id+"&status="+paramValue;
-              break;
-            case 2:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id+"&code="+paramValue;
-              break;
-            case 3:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id+"&requester="+paramValue;
+            default:
+              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id+"&"+parameter+"="+paramValue;
               break;
           }
           HTTPGetData(strUrl, manageResponseRet, 2);
@@ -206,7 +200,6 @@
       //----------------------------------------------------------
       //for : Opening window to create vital-signs data
       function MedicationRequest_Onchange(){
-
         if(document.getElementById("MedicationRequest_Param").selectedIndex==0){
           document.getElementById("ParamValue_Box").disabled = true;
         }
@@ -214,6 +207,7 @@
           document.getElementById("ParamValue_Box").disabled = false;
         }
         document.getElementById("grid").innerHTML = "";
+        document.getElementById("ParamValue_Box").value="";
        }
       //----------------------------------------------------------
     </script>

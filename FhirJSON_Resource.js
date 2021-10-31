@@ -264,6 +264,11 @@ var Observation_Track_2 = {
     "request": {
       "reference": "MedicationRequest/3522"
     },
+    "performer" : [{
+      "actor" :{
+        "reference":""
+      }
+     }],
     "dosage": {
       "text": "已吃一顆",
       "route": {

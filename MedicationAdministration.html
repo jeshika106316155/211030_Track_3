@@ -66,8 +66,8 @@
       <div class="u-clearfix u-sheet u-sheet-1">
         <h2 class="u-text u-text-default u-text-1">Medication Administration Measurement </h2>
         <p style="font-size: 25px;">
-        Practitioner Id : <input type="text" id="PractitionerId_Box" name="PractitionerId_Box" style="color:black" disabled><br><br>
         <form id="MedicationAdministration" name="MedicationAdministration" style="font-size: 20px;">
+        Practitioner Id : <input type="text" id="PractitionerId_Box" name="PractitionerId_Box" style="color:black" disabled><br><br>
         Medication reference<font  style="color:red">*</font>：<input type="text" id="MedicationReference_Box" name="MedicationReference_Box" style="color:black" >ex:MITWTrack3Medication1<br>
         病人Id<font  style="color:red">*</font>：<input type="text" id="Patient_Box" name="Patient_Box" style="color:black" >ex:MITWTrack2P1<br>
         有效期間：
@@ -109,25 +109,36 @@
       if(Action=="ReadOnly"){
         document.getElementsByName("MedicationAdministration_Button")[0].style.display = 'none';
         DisableForm(document.getElementById("MedicationAdministration"));
+        HTTPGetData(FHIRrootURL+"/MedicationAdministration/"+ResourceId, manageResponseRet, 3)
       }
-      else{document.getElementsByName("MedicationAdministration_Button")[0].innerHTML = Action;}
-      HTTPGetData(FHIRrootURL+"/MedicationRequest/"+ResourceId, manageResponseRet, 2)
+      else{
+        document.getElementsByName("MedicationAdministration_Button")[0].innerHTML = Action;
+        HTTPGetData(FHIRrootURL+"/MedicationRequest/"+ResourceId, manageResponseRet, 2);
+      }
       //----------------------------------------------------------
       //for : Manage Response from httprequest 
       function manageResponseRet(ret,count) {
-        if(count==1){
-          alert("Update success!");
-          sessionStorage.setItem("Practitioner_Id", Practitioner_Id);
-          sessionStorage.setItem("Action", "Update");
-          sessionStorage.setItem("ResourceId", ResourceId);
-          window.open("MedicationAdministration.html","_self");
-        }
-        else if(count==2){
-          var form=document.getElementById("MedicationAdministration");
-          var elements = form.elements;
-          MedicationRequest_Track_3=ret;
-          elements[1].value=MedicationRequest_Track_3.subject.reference.split('Patient/')[1];
-          elements[4].value=MedicationRequest_Track_3.id;
+        var form=document.getElementById("MedicationAdministration");
+        var elements = form.elements;
+        switch(count){
+          case 2:
+            MedicationRequest_Track_3=ret;
+            elements[2].value=MedicationRequest_Track_3.subject.reference.split('Patient/')[1];
+            elements[5].value=MedicationRequest_Track_3.id;
+            break;
+          case 3:
+            MedicationAdministration_Track_3=ret;
+            elements[0].value=MedicationAdministration_Track_3.performer[0].actor.reference.split('Practitioner/')[1];
+            elements[1].value=MedicationAdministration_Track_3.medicationReference.reference.split('Medication/')[1];
+            elements[2].value=MedicationAdministration_Track_3.subject.reference.split('Patient/')[1];
+            elements[3].value=MedicationAdministration_Track_3.effectivePeriod.start;
+            elements[4].value=MedicationAdministration_Track_3.effectivePeriod.end;
+            elements[5].value=MedicationAdministration_Track_3.request.reference.split('MedicationRequest/')[1];
+            elements[6].value=MedicationAdministration_Track_3.dosage.route.coding[0].code;
+            elements[7].value=MedicationAdministration_Track_3.dosage.route.coding[0].display;
+            elements[8].value=MedicationAdministration_Track_3.dosage.dose.value;
+            elements[9].value=MedicationAdministration_Track_3.dosage.dose.unit;
+            break;
         }
       }
       //----------------------------------------------------------

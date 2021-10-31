@@ -69,12 +69,12 @@
           請選擇Medication Administration 查詢條件 ：
           <select id="MedicationAdministration_Param" onchange="MedicationRequest_Onchange()" style="color:black" name="MedicationAdministration_Param">
             <option style="color:black" selected>All</option>
-            <option style="color:black" value="request">request</option>
-            <option style="color:black" value="effective-time">effectivePeriod</option>
-            <option style="color:black" value="performer">practitioner’s organization</option>
+            <option style="color:black" value="request">Request</option>
+            <option style="color:black" value="effective-time">EffectivePeriod</option>
+            <option style="color:black" value="performer">Practitioner Id</option>
           </select>
           Value: <input type="text" id="ParamValue_Box" name="ParamValue_Box" style="color:black" disabled>
-          Ex: Status:4407 , effectivePeriod:AC363491G0, Organization:MITWTrack3Pr1
+          Ex: Request:4407 , effectivePeriod:2021-11-01, Practitioner Id:MITWTrack3Pr1
           <div>
             <a style="display: inline;" onclick='Retrieve()' class="u-active-palette-3-base u-border-1 u-border-white u-btn u-btn-round u-button-style u-grey-5 u-hover-palette-3-base u-radius-50 u-text-active-white u-text-body-color u-text-hover-white u-btn-1">Retrieve</a>
          </div>
@@ -92,7 +92,7 @@
     </section>
 
     <script>
-      //HTTPDeleteData(FHIRrootURL+"/MedicationRequest?subject=MITWTrack2P1");
+      //HTTPDeleteData(FHIRrootURL+"/MedicationAdministration?subject=MITWTrack2P1");
       //----------------------------------------------------------
       //for : Put new Patient for track-2
       //PatientUUID = uuid:c9fe05c1-f723-44ca-994b-36952719df23
@@ -118,20 +118,14 @@
           document.getElementById("grid").innerHTML = "";
           var  paramValue = document.getElementById("ParamValue_Box").value;
           var strUrl="";
-          
+          var parameter = document.getElementById("MedicationAdministration_Param").options[document.getElementById("MedicationAdministration_Param").selectedIndex].value;
           switch(document.getElementById("MedicationAdministration_Param").selectedIndex)
           {
             case 0:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id;
+              strUrl=FHIRrootURL+"/MedicationAdministration?subject="+Patient_Id;
               break;
-            case 1:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id+"&status="+paramValue;
-              break;
-            case 2:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id+"&code="+paramValue;
-              break;
-            case 3:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id+"&requester="+paramValue;
+            default:
+              strUrl=FHIRrootURL+"/MedicationAdministration?subject="+Patient_Id+"&"+parameter+"="+paramValue;
               break;
           }
           HTTPGetData(strUrl, manageResponseRet, 2);
@@ -157,15 +151,13 @@
           tbl.id="myTable";
           tbl.setAttribute('border', '1');
           thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Medication Request Id";
+          th.innerHTML = "Medication Administration Id";
           thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Authored date";
+          th.innerHTML = "Effective-time";
           thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Status";
+          th.innerHTML = "Practitioner Id";
           thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Medication code";
-          thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Organization";
+          th.innerHTML = "Medication request";
           tbl.appendChild(tbdy = document.createElement('tbody'));
           document.getElementById("grid").appendChild(tbl);
           ret.entry.forEach(entryResource => InsertRow(tbdy,entryResource));
@@ -177,19 +169,18 @@
       //for : Insert row to grid 
       function InsertRow(tbdy,entryResource){
         var resourceId_Link = document.createElement('a');
-        resourceId_Link.setAttribute("onclick", "GoDisplayObs('"+entryResource.resource.requester.reference.split('Practitioner/')[1]+"','"+entryResource.resource.id+"')")
+        resourceId_Link.setAttribute("onclick", "GoDisplayObs('"+entryResource.resource.performer[0].actor.reference.split("Practitioner/")[1]+"','"+entryResource.resource.id+"')")
         resourceId_Link.innerHTML = entryResource.resource.id;
         tbdy.appendChild(tr = document.createElement('tr'));
         tr.appendChild(td = document.createElement("td"));
         td.appendChild(resourceId_Link);
         tr.appendChild(td = document.createElement("td"));
-        td.innerHTML = entryResource.resource.authoredOn;
+        td.innerHTML = (entryResource.resource.effectiveDateTime==undefined)?
+          entryResource.resource.effectivePeriod.start+"~"+entryResource.resource.effectivePeriod.end:entryResource.resource.effectiveDateTime;
         tr.appendChild(td = document.createElement("td"));
-        td.innerHTML = entryResource.resource.status;
+        td.innerHTML = entryResource.resource.performer[0].actor.reference.split("Practitioner/")[1];
         tr.appendChild(td = document.createElement("td"));
-        td.innerHTML = entryResource.resource.medicationCodeableConcept.coding[0].display;
-        tr.appendChild(td = document.createElement("td"));
-        td.innerHTML = entryResource.resource.requester.reference;
+        td.innerHTML = entryResource.resource.request.reference.split("MedicationRequest/")[1];
       }
       //----------------------------------------------------------
 
@@ -199,14 +190,13 @@
         sessionStorage.setItem("Practitioner_Id", Practitioner_Id);
         sessionStorage.setItem("Action", "ReadOnly");
         sessionStorage.setItem("ResourceId", resourceId);
-        window.open("MedicationRequest.html");
+        window.open("MedicationAdministration.html");
         //window.open(FHIRrootURL+"/"+resourceName+"/"+resourceId);
       }
       //----------------------------------------------------------
       //----------------------------------------------------------
       //for : Opening window to create vital-signs data
       function MedicationRequest_Onchange(){
-
         if(document.getElementById("MedicationAdministration_Param").selectedIndex==0){
           document.getElementById("ParamValue_Box").disabled = true;
         }
@@ -214,6 +204,7 @@
           document.getElementById("ParamValue_Box").disabled = false;
         }
         document.getElementById("grid").innerHTML = "";
+        document.getElementById("ParamValue_Box").value="";
        }
       //----------------------------------------------------------
     </script>

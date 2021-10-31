@@ -33,18 +33,19 @@
             resource = MedicationRequest_Track_3;
             break;
           case "MedicationAdministration":
-            MedicationAdministration_Track_3.medicationReference.reference = "Medication/"+elements[0].value;
-            MedicationAdministration_Track_3.subject.reference = "Patient/"+elements[1].value;
-            MedicationAdministration_Track_3.effectivePeriod.start = elements[2].value;
-            MedicationAdministration_Track_3.effectivePeriod.end = elements[3].value;
-            MedicationAdministration_Track_3.request.reference = "MedicationRequest/"+elements[4].value;
-            MedicationAdministration_Track_3.dosage.route.coding[0].code = elements[5].value;
-            MedicationAdministration_Track_3.dosage.route.coding[0].display = elements[6].value;
-            MedicationAdministration_Track_3.dosage.method.coding[0].code = elements[5].value;
-            MedicationAdministration_Track_3.dosage.method.coding[0].display = elements[6].value;
-            MedicationAdministration_Track_3.dosage.dose.value = elements[7].value;
-            MedicationAdministration_Track_3.dosage.unit = elements[8].value;
-            MedicationAdministration_Track_3.dosage.code = elements[8].value;
+            MedicationAdministration_Track_3.performer[0].actor.reference = "Practitioner/"+elements[0].value;
+            MedicationAdministration_Track_3.medicationReference.reference = "Medication/"+elements[1].value;
+            MedicationAdministration_Track_3.subject.reference = "Patient/"+elements[2].value;
+            MedicationAdministration_Track_3.effectivePeriod.start = elements[3].value;
+            MedicationAdministration_Track_3.effectivePeriod.end = elements[4].value;
+            MedicationAdministration_Track_3.request.reference = "MedicationRequest/"+elements[5].value;
+            MedicationAdministration_Track_3.dosage.route.coding[0].code = elements[6].value;
+            MedicationAdministration_Track_3.dosage.route.coding[0].display = elements[7].value;
+            MedicationAdministration_Track_3.dosage.method.coding[0].code = elements[6].value;
+            MedicationAdministration_Track_3.dosage.method.coding[0].display = elements[7].value;
+            MedicationAdministration_Track_3.dosage.dose.value = elements[8].value;
+            MedicationAdministration_Track_3.dosage.unit = elements[9].value;
+            MedicationAdministration_Track_3.dosage.code = elements[9].value;
             resource = MedicationAdministration_Track_3;
             break;
         }
