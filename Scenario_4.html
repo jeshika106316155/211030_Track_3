@@ -3,12 +3,12 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Scenario 2​">
+    <meta name="keywords" content="Scenario 4​">
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <title>Scenario_2</title>
+    <title>Scenario_4</title>
     <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="Scenario_2.css" media="screen">
+<link rel="stylesheet" href="Scenario_4.css" media="screen">
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <script src="setting.js"></script>
@@ -25,7 +25,7 @@
 		"logo": "images/MITW_logo.png"
 }</script>
     <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="Scenario_2">
+    <meta property="og:title" content="Scenario_4">
     <meta property="og:type" content="website">
   </head>
   <body class="u-body"><header class="u-clearfix u-header u-header" id="sec-9c23"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
@@ -63,18 +63,18 @@
       </div></header>
     <section class="u-clearfix u-custom-color-1 u-section-1" id="sec-4c52">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-text u-text-default u-text-1">Scenario 2 - Retrieve MedicationRequest </h2>
+        <h2 class="u-text u-text-default u-text-1">Scenario 4 - Retrieve MedicationAdministration </h2>
         <p style="font-size: 25px;">
           Patient Id : <input type="text" id="PatientId_Box" name="PatientId_Box" style="color:black" disabled><br><br>
-          請選擇Medication Request 查詢條件 ：
-          <select id="MedicationRequest_Param" onchange="MedicationRequest_Onchange()" style="color:black" name="MedicationRequest_Param">
+          請選擇Medication Administration 查詢條件 ：
+          <select id="MedicationAdministration_Param" onchange="MedicationRequest_Onchange()" style="color:black" name="MedicationAdministration_Param">
             <option style="color:black" selected>All</option>
-            <option style="color:black" value="status">Status</option>
-            <option style="color:black" value="code">Medication code</option>
-            <option style="color:black" value="requester">Organization</option>
+            <option style="color:black" value="request">Request</option>
+            <option style="color:black" value="effective-time">EffectivePeriod</option>
+            <option style="color:black" value="performer">Practitioner Id</option>
           </select>
           Value: <input type="text" id="ParamValue_Box" name="ParamValue_Box" style="color:black" disabled>
-          Ex: Status:active , code:AC363491G0, Organization:MITWTrack3Pr1
+          Ex: Request:4407 , effectivePeriod:2021-11-01, Practitioner Id:MITWTrack3Pr1
           <div>
             <a style="display: inline;" onclick='Retrieve()' class="u-active-palette-3-base u-border-1 u-border-white u-btn u-btn-round u-button-style u-grey-5 u-hover-palette-3-base u-radius-50 u-text-active-white u-text-body-color u-text-hover-white u-btn-1">Retrieve</a>
          </div>
@@ -92,7 +92,7 @@
     </section>
 
     <script>
-      //HTTPDeleteData(FHIRrootURL+"/MedicationRequest?subject=MITWTrack2P1");
+      //HTTPDeleteData(FHIRrootURL+"/MedicationAdministration?subject=MITWTrack2P1");
       //----------------------------------------------------------
       //for : Put new Patient for track-2
       //PatientUUID = uuid:c9fe05c1-f723-44ca-994b-36952719df23
@@ -111,21 +111,21 @@
       //----------------------------------------------------------
       //for : List MedicationRequest data of Patient
       function Retrieve(){
-        if(document.getElementById("ParamValue_Box").value=="" && document.getElementById("MedicationRequest_Param").selectedIndex>0){
+        if(document.getElementById("ParamValue_Box").value=="" && document.getElementById("MedicationAdministration_Param").selectedIndex>0){
           alert("Please fill all field!");
           return;
         }
           document.getElementById("grid").innerHTML = "";
           var  paramValue = document.getElementById("ParamValue_Box").value;
           var strUrl="";
-          var parameter = document.getElementById("MedicationRequest_Param").options[document.getElementById("MedicationRequest_Param").selectedIndex].value;
-          switch(document.getElementById("MedicationRequest_Param").selectedIndex)
+          var parameter = document.getElementById("MedicationAdministration_Param").options[document.getElementById("MedicationAdministration_Param").selectedIndex].value;
+          switch(document.getElementById("MedicationAdministration_Param").selectedIndex)
           {
             case 0:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id;
+              strUrl=FHIRrootURL+"/MedicationAdministration?subject="+Patient_Id;
               break;
             default:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id+"&"+parameter+"="+paramValue;
+              strUrl=FHIRrootURL+"/MedicationAdministration?subject="+Patient_Id+"&"+parameter+"="+paramValue;
               break;
           }
           HTTPGetData(strUrl, manageResponseRet, 2);
@@ -151,15 +151,13 @@
           tbl.id="myTable";
           tbl.setAttribute('border', '1');
           thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Medication Request Id";
+          th.innerHTML = "Medication Administration Id";
           thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Authored date";
+          th.innerHTML = "Effective-time";
           thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Status";
+          th.innerHTML = "Practitioner Id";
           thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Medication code";
-          thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Organization";
+          th.innerHTML = "Medication request";
           tbl.appendChild(tbdy = document.createElement('tbody'));
           document.getElementById("grid").appendChild(tbl);
           ret.entry.forEach(entryResource => InsertRow(tbdy,entryResource));
@@ -171,19 +169,18 @@
       //for : Insert row to grid 
       function InsertRow(tbdy,entryResource){
         var resourceId_Link = document.createElement('a');
-        resourceId_Link.setAttribute("onclick", "GoDisplayObs('"+entryResource.resource.requester.reference.split('Practitioner/')[1]+"','"+entryResource.resource.id+"')")
+        resourceId_Link.setAttribute("onclick", "GoDisplayObs('"+entryResource.resource.performer[0].actor.reference.split("Practitioner/")[1]+"','"+entryResource.resource.id+"')")
         resourceId_Link.innerHTML = entryResource.resource.id;
         tbdy.appendChild(tr = document.createElement('tr'));
         tr.appendChild(td = document.createElement("td"));
         td.appendChild(resourceId_Link);
         tr.appendChild(td = document.createElement("td"));
-        td.innerHTML = entryResource.resource.authoredOn;
+        td.innerHTML = (entryResource.resource.effectiveDateTime==undefined)?
+          entryResource.resource.effectivePeriod.start+"~"+entryResource.resource.effectivePeriod.end:entryResource.resource.effectiveDateTime;
         tr.appendChild(td = document.createElement("td"));
-        td.innerHTML = entryResource.resource.status;
+        td.innerHTML = entryResource.resource.performer[0].actor.reference.split("Practitioner/")[1];
         tr.appendChild(td = document.createElement("td"));
-        td.innerHTML = entryResource.resource.medicationCodeableConcept.coding[0].display;
-        tr.appendChild(td = document.createElement("td"));
-        td.innerHTML = entryResource.resource.requester.reference;
+        td.innerHTML = entryResource.resource.request.reference.split("MedicationRequest/")[1];
       }
       //----------------------------------------------------------
 
@@ -193,14 +190,14 @@
         sessionStorage.setItem("Practitioner_Id", Practitioner_Id);
         sessionStorage.setItem("Action", "ReadOnly");
         sessionStorage.setItem("ResourceId", resourceId);
-        window.open("MedicationRequest.html");
+        window.open("MedicationAdministration.html");
         //window.open(FHIRrootURL+"/"+resourceName+"/"+resourceId);
       }
       //----------------------------------------------------------
       //----------------------------------------------------------
       //for : Opening window to create vital-signs data
       function MedicationRequest_Onchange(){
-        if(document.getElementById("MedicationRequest_Param").selectedIndex==0){
+        if(document.getElementById("MedicationAdministration_Param").selectedIndex==0){
           document.getElementById("ParamValue_Box").disabled = true;
         }
         else{

@@ -3,6 +3,7 @@
 function HTTPGetData(urlStr, callBack, count) {
     var HttpObj = new XMLHttpRequest();
     HttpObj.open("GET", urlStr, true);
+    HttpObj.setRequestHeader("authorization", FHIRtoken);
     HttpObj.setRequestHeader("Authorization", 'Bearer 87944918-1f86-418e-8418-398e2e4ddee6');
     HttpObj.onreadystatechange = function () {
         if (HttpObj.readyState === 4) {
@@ -19,6 +20,7 @@ function HTTPGetData(urlStr, callBack, count) {
 function HTTPPostData(urlStr, dataStr) {
     var HttpObj = new XMLHttpRequest();
     HttpObj.open("POST", urlStr, true);
+    HttpObj.setRequestHeader("authorization", FHIRtoken);
     HttpObj.setRequestHeader("Content-type", "application/json+fhir");
     //HttpObj.setRequestHeader("Content-type", "application/xml+fhir");
     HttpObj.onreadystatechange = function () {
@@ -35,6 +37,7 @@ function HTTPPostData(urlStr, dataStr) {
 function HTTPPutData(urlStr, dataStr,callBack,count) {
     var HttpObj = new XMLHttpRequest();
     HttpObj.open("PUT", urlStr, true);
+    HttpObj.setRequestHeader("authorization", FHIRtoken);
     HttpObj.setRequestHeader("Content-type", "application/json+fhir");
     //HttpObj.setRequestHeader("Content-type", "application/xml+fhir");
     HttpObj.onreadystatechange = function () {
@@ -51,6 +54,7 @@ function HTTPPutData(urlStr, dataStr,callBack,count) {
 function HTTPDeleteData(urlStr) {
     var HttpObj = new XMLHttpRequest();
     HttpObj.open("DELETE", urlStr, true);
+    HttpObj.setRequestHeader("authorization", FHIRtoken);
     HttpObj.setRequestHeader("Content-type", "application/json+fhir");
     //HttpObj.setRequestHeader("Content-type", "application/xml+fhir");
     HttpObj.onreadystatechange = function () {

@@ -3,12 +3,12 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Scenario 2​">
+    <meta name="keywords" content="Scenario 3​">
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <title>Scenario_2</title>
+    <title>Scenario_3</title>
     <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="Scenario_2.css" media="screen">
+<link rel="stylesheet" href="Scenario_3.css" media="screen">
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <script src="setting.js"></script>
@@ -25,7 +25,7 @@
 		"logo": "images/MITW_logo.png"
 }</script>
     <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="Scenario_2">
+    <meta property="og:title" content="Scenario_3">
     <meta property="og:type" content="website">
   </head>
   <body class="u-body"><header class="u-clearfix u-header u-header" id="sec-9c23"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
@@ -63,18 +63,18 @@
       </div></header>
     <section class="u-clearfix u-custom-color-1 u-section-1" id="sec-4c52">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-text u-text-default u-text-1">Scenario 2 - Retrieve MedicationRequest </h2>
+        <h2 class="u-text u-text-default u-text-1">Scenario 3 - Create MedicationAdministration </h2>
         <p style="font-size: 25px;">
-          Patient Id : <input type="text" id="PatientId_Box" name="PatientId_Box" style="color:black" disabled><br><br>
-          請選擇Medication Request 查詢條件 ：
-          <select id="MedicationRequest_Param" onchange="MedicationRequest_Onchange()" style="color:black" name="MedicationRequest_Param">
-            <option style="color:black" selected>All</option>
-            <option style="color:black" value="status">Status</option>
-            <option style="color:black" value="code">Medication code</option>
-            <option style="color:black" value="requester">Organization</option>
+          Practitioner Id : <input type="text" id="PractitionerId_Box" name="PractitionerId_Box" style="color:black" disabled><br><br>
+          請選擇 Medication Request 查詢條件 ：
+          <select id="MedicationRequest_Param" style="color:black" name="MedicationRequest_Param">
+            <option style="color:black" value="requester" selected>requester</option>
+            <option style="color:black" value="subject">patient</option>
           </select>
-          Value: <input type="text" id="ParamValue_Box" name="ParamValue_Box" style="color:black" disabled>
-          Ex: Status:active , code:AC363491G0, Organization:MITWTrack3Pr1
+          Value: <input type="text" id="ParamValue_Box" name="ParamValue_Box" style="color:black" >
+          Ex: requester:MITWTrack3Pr1 , patient:MITWTrack2P1 
+          <br>
+          Please click on the medication request ID to create the MedicationAdministration<br><br>
           <div>
             <a style="display: inline;" onclick='Retrieve()' class="u-active-palette-3-base u-border-1 u-border-white u-btn u-btn-round u-button-style u-grey-5 u-hover-palette-3-base u-radius-50 u-text-active-white u-text-body-color u-text-hover-white u-btn-1">Retrieve</a>
          </div>
@@ -82,7 +82,6 @@
         <div id="grid"></div>
       </div>
     </section>
-    
     
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-4668"><div class="u-clearfix u-sheet u-sheet-1">
         <p class="u-small-text u-text u-text-variant u-text-1">Team: TCU106-Indonesia<br>Email: 106316156@gms.tcu.edu.tw
@@ -92,44 +91,33 @@
     </section>
 
     <script>
-      //HTTPDeleteData(FHIRrootURL+"/MedicationRequest?subject=MITWTrack2P1");
+      var Practitioner_Id;
       //----------------------------------------------------------
-      //for : Put new Patient for track-2
-      //PatientUUID = uuid:c9fe05c1-f723-44ca-994b-36952719df23
-      HTTPPutData(FHIRrootURL+"/Patient/MITWTrack2P1", JSON.stringify(Patient_Track_2),manageResponseRet,1)
+      //for : Put new Practitioner for track-2
+      //PractitionerUUID = uuid:c9fe05c1-f723-44ca-994b-36952719df23
+      HTTPPutData(FHIRrootURL+"/Practitioner/MITWTrack3Pr1", JSON.stringify(Practitioner_Track_3),manageResponseRet,1)
       //----------------------------------------------------------
-      var Patient_Id ;
       //----------------------------------------------------------
       //for : Opening window to create Medication request data
       function Create(){
-          sessionStorage.setItem("Patient_Id", Patient_Id);
+          sessionStorage.setItem("Practitioner_Id", Practitioner_Id);
           sessionStorage.setItem("Action", "Create");
           window.open("MedicationRequest.html");
       }
       //----------------------------------------------------------
       
       //----------------------------------------------------------
-      //for : List MedicationRequest data of Patient
+      //for : List MedicationRequest data 
       function Retrieve(){
-        if(document.getElementById("ParamValue_Box").value=="" && document.getElementById("MedicationRequest_Param").selectedIndex>0){
+        if(document.getElementById("ParamValue_Box").value==""){
           alert("Please fill all field!");
           return;
         }
-          document.getElementById("grid").innerHTML = "";
-          var  paramValue = document.getElementById("ParamValue_Box").value;
-          var strUrl="";
-          var parameter = document.getElementById("MedicationRequest_Param").options[document.getElementById("MedicationRequest_Param").selectedIndex].value;
-          switch(document.getElementById("MedicationRequest_Param").selectedIndex)
-          {
-            case 0:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id;
-              break;
-            default:
-              strUrl=FHIRrootURL+"/MedicationRequest?_sort=authoredon&subject="+Patient_Id+"&"+parameter+"="+paramValue;
-              break;
-          }
-          HTTPGetData(strUrl, manageResponseRet, 2);
-          }
+        document.getElementById("grid").innerHTML = "";
+        HTTPGetData(FHIRrootURL+"/MedicationRequest?_sort=authoredon&"+
+        document.getElementById("MedicationRequest_Param").options[document.getElementById("MedicationRequest_Param").selectedIndex].value+"=" + 
+        document.getElementById("ParamValue_Box").value, manageResponseRet, 2);
+      }
       //----------------------------------------------------------
 
       //----------------------------------------------------------
@@ -140,10 +128,10 @@
           return ;
       }
         if(count==1){
-          alert("Patient login success!");
-          sessionStorage.setItem("Patient_Id", ret.id);
-          Patient_Id = sessionStorage.getItem("Patient_Id");
-          document.getElementById("PatientId_Box").value = Patient_Id;
+          alert("Practitioner login success!");
+          sessionStorage.setItem("Practitioner_Id", ret.id);
+          Practitioner_Id = sessionStorage.getItem("Practitioner_Id");
+          document.getElementById("PractitionerId_Box").value = Practitioner_Id;
         }
         else if(count==2){
           var tbl = document.createElement('table');
@@ -155,11 +143,9 @@
           thead.appendChild(th = document.createElement('th'));
           th.innerHTML = "Authored date";
           thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Status";
+          th.innerHTML = "Patient Id";
           thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Medication code";
-          thead.appendChild(th = document.createElement('th'));
-          th.innerHTML = "Organization";
+          th.innerHTML = "Practitioner Id";
           tbl.appendChild(tbdy = document.createElement('tbody'));
           document.getElementById("grid").appendChild(tbl);
           ret.entry.forEach(entryResource => InsertRow(tbdy,entryResource));
@@ -171,7 +157,7 @@
       //for : Insert row to grid 
       function InsertRow(tbdy,entryResource){
         var resourceId_Link = document.createElement('a');
-        resourceId_Link.setAttribute("onclick", "GoDisplayObs('"+entryResource.resource.requester.reference.split('Practitioner/')[1]+"','"+entryResource.resource.id+"')")
+        resourceId_Link.setAttribute("onclick", "GoDisplayObs('MedicationRequest','"+entryResource.resource.id+"')")
         resourceId_Link.innerHTML = entryResource.resource.id;
         tbdy.appendChild(tr = document.createElement('tr'));
         tr.appendChild(td = document.createElement("td"));
@@ -179,9 +165,7 @@
         tr.appendChild(td = document.createElement("td"));
         td.innerHTML = entryResource.resource.authoredOn;
         tr.appendChild(td = document.createElement("td"));
-        td.innerHTML = entryResource.resource.status;
-        tr.appendChild(td = document.createElement("td"));
-        td.innerHTML = entryResource.resource.medicationCodeableConcept.coding[0].display;
+        td.innerHTML = entryResource.resource.subject.reference;
         tr.appendChild(td = document.createElement("td"));
         td.innerHTML = entryResource.resource.requester.reference;
       }
@@ -189,27 +173,16 @@
 
       //----------------------------------------------------------
       //for : Insert row to grid
-      function GoDisplayObs(Practitioner_Id,resourceId){
+      function GoDisplayObs(resourceName,resourceId){
         sessionStorage.setItem("Practitioner_Id", Practitioner_Id);
-        sessionStorage.setItem("Action", "ReadOnly");
+        sessionStorage.setItem("Action", "Create");
         sessionStorage.setItem("ResourceId", resourceId);
-        window.open("MedicationRequest.html");
+        window.open("MedicationAdministration.html");
         //window.open(FHIRrootURL+"/"+resourceName+"/"+resourceId);
       }
       //----------------------------------------------------------
-      //----------------------------------------------------------
-      //for : Opening window to create vital-signs data
-      function MedicationRequest_Onchange(){
-        if(document.getElementById("MedicationRequest_Param").selectedIndex==0){
-          document.getElementById("ParamValue_Box").disabled = true;
-        }
-        else{
-          document.getElementById("ParamValue_Box").disabled = false;
-        }
-        document.getElementById("grid").innerHTML = "";
-        document.getElementById("ParamValue_Box").value="";
-       }
-      //----------------------------------------------------------
+
     </script>
+
   </body>
 </html>

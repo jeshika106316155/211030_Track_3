@@ -6,9 +6,9 @@
     <meta name="keywords" content="Scenario 1​">
     <meta name="description" content="">
     <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <title>MedicationRequest</title>
+    <title>MedicationAdministration</title>
     <link rel="stylesheet" href="nicepage.css" media="screen">
-    <link rel="stylesheet" href="MedicationRequest.css" media="screen">
+    <link rel="stylesheet" href="MedicationAdministration.css" media="screen">
     <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <script src="setting.js"></script>
@@ -26,7 +26,7 @@
 		"logo": "images/MITW_logo.png"
 }</script>
     <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="MedicationRequest">
+    <meta property="og:title" content="MedicationAdministration">
     <meta property="og:type" content="website">
   </head>
   <body class="u-body"><header class="u-clearfix u-header u-header" id="sec-9c23"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
@@ -43,7 +43,7 @@
             </a>
           </div>
           <div class="u-custom-menu u-nav-container">
-            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Home.html" style="padding: 10px 20px;">Home</a>
+            <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="index.html" style="padding: 10px 20px;">Home</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="About.html" style="padding: 10px 20px;">About</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Contact.html" style="padding: 10px 20px;">Contact</a>
 </li></ul>
@@ -52,7 +52,7 @@
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Home.html" style="padding: 10px 20px;">Home</a>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="index.html" style="padding: 10px 20px;">Home</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="About.html" style="padding: 10px 20px;">About</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Contact.html" style="padding: 10px 20px;">Contact</a>
 </li></ul>
@@ -64,57 +64,25 @@
       </div></header>
     <section class="u-clearfix u-custom-color-1 u-section-1" id="sec-4c52">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-text u-text-default u-text-1">Medication Request Measurement </h2>
+        <h2 class="u-text u-text-default u-text-1">Medication Administration Measurement </h2>
         <p style="font-size: 25px;">
+        <form id="MedicationAdministration" name="MedicationAdministration" style="font-size: 20px;">
         Practitioner Id : <input type="text" id="PractitionerId_Box" name="PractitionerId_Box" style="color:black" disabled><br><br>
-        <form id="MedicationRequest" name="MedicationRequest" style="font-size: 20px;">
-        病人種類<font  style="color:red">*</font>：
-        <select id="Patient_Type" style="color:black" name="Patient_Type">
-          <option value="inpatient" style="color:black">Inpatient</option>
-          <option value="outpatient" style="color:black">Body Temperature</option>
-          <option value="community" style="color:black">Community</option>
-          <option value="discharge" style="color:black">Discharge</option>
-        </select><br>
-        藥物資訊<font  style="color:red">*</font>：
-        藥物名稱<font  style="color:red">*</font>：<input type="text" id="DrugName_Box" name="DrugName_Box" style="color:black" >ex:211 Metformin 500g&emsp;&emsp;
-        藥物代碼<font  style="color:red">*</font>：<input type="text" id="DrugCode_Box" name="DrugCode_Box" style="color:black" >ex:AC363491G0 
-        <a href="https://www.nhi.gov.tw/QueryN/Query1.aspx">衛生福參考</a><br>
+        Medication reference<font  style="color:red">*</font>：<input type="text" id="MedicationReference_Box" name="MedicationReference_Box" style="color:black" >ex:MITWTrack3Medication1<br>
         病人Id<font  style="color:red">*</font>：<input type="text" id="Patient_Box" name="Patient_Box" style="color:black" >ex:MITWTrack2P1<br>
-        建立日期<font  style="color:red">*</font>：<input type="date" id="authoredOn_Date" name="authoredOn_Date" style="color:black"><br>
-        用藥方法<font  style="color:red">*</font>：
-        <select id="Dosage_Type" style="color:black" name="Dosage_Type">
-          <option value="BID" style="color:black" selected>BID</option>
-          <option value="TID" style="color:black">TID</option>
-          <option value="QID" style="color:black">QID</option>
-          <option value="AM" style="color:black">AM</option>
-          <option value="PM" style="color:black">PM</option>
-          <option value="QD" style="color:black">QD	</option>
-          <option value="QOD" style="color:black">QOD</option>
-          <option value="Q1H" style="color:black">every hour</option>
-          <option value="Q2H" style="color:black">every 2 hours	</option>
-          <option value="Q3H" style="color:black">every 3 hours	</option>
-          <option value="Q4H" style="color:black">Q4H</option>
-          <option value="Q6H" style="color:black">Q6H</option>
-          <option value="Q8H" style="color:black">every 8 hours	</option>
-          <option value="BED" style="color:black">every 8 hours		</option>
-          <option value="WK" style="color:black">weekly</option>
-          <option value="MO" style="color:black">monthly</option>
-        </select>
-        <br>
-        用藥路徑：
-        用藥部位<font  style="color:red">*</font>：<input type="text" id="DrugMethodPosition_Box" name="DrugMethodPosition_Box" style="color:black" >ex:口服&emsp;&emsp;
-        用藥代碼：<input type="text" id="DrugMethodCode_Box" name="DrugMethodCode_Box" style="color:black" >ex:PO 
-        <a href="http://mtrsoftware.com.tw/Page_L/%E7%94%A8%E6%B3%95%E8%A1%A8.htm">參考</a><br>
-        配藥期間
+        有效期間：
         Start<font  style="color:red">*</font>：<input type="date" id="Start_Date" name="Start_Date" style="color:black">&emsp;&emsp;
         End<font  style="color:red">*</font>：<input type="date" id="End_Date" name="End_Date" style="color:black">
         <br>
+        Medication request:<input type="text" id="MedicationRequest_Box" name="MedicationRequest_Box" style="color:black" >ex:4397<br>
+        用藥路徑：
+        用藥部位<font  style="color:red">*</font>：<input type="text" id="DrugMethodPosition_Box" name="DrugMethodPosition_Box" style="color:black" >ex:口服&emsp;&emsp;
+        用藥代碼<font  style="color:red">*</font>：<input type="text" id="DrugMethodCode_Box" name="DrugMethodCode_Box" style="color:black" >ex:PO 
+        <a href="http://mtrsoftware.com.tw/Page_L/%E7%94%A8%E6%B3%95%E8%A1%A8.htm">參考</a><br>
         配藥重量<font  style="color:red">*</font>：<input type="text" id="Quantity_Box" name="Quantity_Box" style="color:black" >ex:7&emsp;&emsp;
         重量單位代碼<font  style="color:red">*</font>：<input type="text" id="QuantityCode_Box" name="QuantityCode_Box" style="color:black" >ex:TAB 
         <a href="https://terminology.hl7.org/2.1.0/CodeSystem-v3-orderableDrugForm.html">參考</a><br>
-        配藥天數<font  style="color:red">*</font>：<input type="text" id="expectedSupplyDuration_Box" name="expectedSupplyDuration_Box" style="color:black" >ex:7
-        <br>
-        <a id="MedicationRequest" name="MedicationRequest_Button" onclick='Submit_Measurement(this)' class="u-active-palette-3-base u-border-1 u-border-white u-btn u-btn-round u-button-style u-grey-5 u-hover-palette-3-base u-radius-50 u-text-active-white u-text-body-color u-text-hover-white u-btn-1"></a>
+        <a id="MedicationAdministration" name="MedicationAdministration_Button" onclick='Submit_Measurement(this)' class="u-active-palette-3-base u-border-1 u-border-white u-btn u-btn-round u-button-style u-grey-5 u-hover-palette-3-base u-radius-50 u-text-active-white u-text-body-color u-text-hover-white u-btn-1"></a>
         </form>
         </p>
       </div>
@@ -136,44 +104,41 @@
       var Action = sessionStorage.getItem("Action");
       var ResourceId = sessionStorage.getItem("ResourceId");
       document.getElementById("PractitionerId_Box").value = Practitioner_Id;
+      HTTPPutData(FHIRrootURL+"/Medication/MITWTrack3Medication1", JSON.stringify(Medication_Track_3),manageResponseRet,0)
 
       if(Action=="ReadOnly"){
-        document.getElementsByName("MedicationRequest_Button")[0].style.display = 'none';
-        DisableForm(document.getElementById("MedicationRequest"));
-
+        document.getElementsByName("MedicationAdministration_Button")[0].style.display = 'none';
+        DisableForm(document.getElementById("MedicationAdministration"));
+        HTTPGetData(FHIRrootURL+"/MedicationAdministration/"+ResourceId, manageResponseRet, 3)
       }
-      else{document.getElementsByName("MedicationRequest_Button")[0].innerHTML = Action;}
-
-      if(Action=="Update" || Action=="ReadOnly"){
-        HTTPGetData(FHIRrootURL+"/MedicationRequest/"+ResourceId, manageResponseRet, 2)
+      else{
+        document.getElementsByName("MedicationAdministration_Button")[0].innerHTML = Action;
+        HTTPGetData(FHIRrootURL+"/MedicationRequest/"+ResourceId, manageResponseRet, 2);
       }
       //----------------------------------------------------------
       //for : Manage Response from httprequest 
       function manageResponseRet(ret,count) {
-        if(count==1){
-          alert("Update success!");
-          sessionStorage.setItem("Practitioner_Id", Practitioner_Id);
-          sessionStorage.setItem("Action", "Update");
-          sessionStorage.setItem("ResourceId", ResourceId);
-          window.open("MedicationRequest.html","_self");
-        }
-        else if(count==2){
-          var form=document.getElementById("MedicationRequest");
-          var elements = form.elements;
-          MedicationRequest_Track_3=ret;
-          elements[0].selectedOptions[0].value=MedicationRequest_Track_3.category[0].coding[0].code;
-          elements[1].value=MedicationRequest_Track_3.medicationCodeableConcept.coding[0].display;
-          elements[2].value=MedicationRequest_Track_3.medicationCodeableConcept.coding[0].code;
-          elements[3].value=MedicationRequest_Track_3.subject.reference.split('Patient/')[1];
-          elements[4].value=MedicationRequest_Track_3.authoredOn;
-          elements[5].selectedOptions[0].value=MedicationRequest_Track_3.dosageInstruction[0].timing.code.coding[0].code;
-          elements[6].value=MedicationRequest_Track_3.dosageInstruction[0].route.coding[0].display;
-          elements[7].value=MedicationRequest_Track_3.dosageInstruction[0].route.coding[0].code;
-          elements[8].value=MedicationRequest_Track_3.dispenseRequest.validityPeriod.start;
-          elements[9].value=MedicationRequest_Track_3.dispenseRequest.validityPeriod.end;
-          elements[10].value=MedicationRequest_Track_3.dispenseRequest.quantity.value;
-          elements[11].value=MedicationRequest_Track_3.dispenseRequest.quantity.unit;
-          elements[12].value=MedicationRequest_Track_3.dispenseRequest.expectedSupplyDuration.value;
+        var form=document.getElementById("MedicationAdministration");
+        var elements = form.elements;
+        switch(count){
+          case 2:
+            MedicationRequest_Track_3=ret;
+            elements[2].value=MedicationRequest_Track_3.subject.reference.split('Patient/')[1];
+            elements[5].value=MedicationRequest_Track_3.id;
+            break;
+          case 3:
+            MedicationAdministration_Track_3=ret;
+            elements[0].value=MedicationAdministration_Track_3.performer[0].actor.reference.split('Practitioner/')[1];
+            elements[1].value=MedicationAdministration_Track_3.medicationReference.reference.split('Medication/')[1];
+            elements[2].value=MedicationAdministration_Track_3.subject.reference.split('Patient/')[1];
+            elements[3].value=MedicationAdministration_Track_3.effectivePeriod.start;
+            elements[4].value=MedicationAdministration_Track_3.effectivePeriod.end;
+            elements[5].value=MedicationAdministration_Track_3.request.reference.split('MedicationRequest/')[1];
+            elements[6].value=MedicationAdministration_Track_3.dosage.route.coding[0].code;
+            elements[7].value=MedicationAdministration_Track_3.dosage.route.coding[0].display;
+            elements[8].value=MedicationAdministration_Track_3.dosage.dose.value;
+            elements[9].value=MedicationAdministration_Track_3.dosage.dose.unit;
+            break;
         }
       }
       //----------------------------------------------------------
@@ -190,7 +155,7 @@
       //for : Post body weight vital sign measurement for track-2
       function DisableForm(form){
         var elements = form.elements;
-        for(var i=0;i<form.length;i++){
+        for(var i=0;i<elements.length;i++){
           elements[i].disabled=true;
         }
       }

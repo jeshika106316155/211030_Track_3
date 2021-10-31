@@ -8,7 +8,7 @@
 // "http://hapi.fhir.org/baseDstu3"
 
 // "http://hapi.fhir.org";
-
+var FHIRtoken = "87944918-1f86-418e-8418-398e2e4ddee6";
 /* 
 post Patioent, Observation....
  http://hapi.fhir.org/baseDstu3/Patient

@@ -248,3 +248,66 @@ var Observation_Track_2 = {
     "resourceType": "Practitioner",
     "id": "MITWTrack3Pr1"
   }
+  var MedicationAdministration_Track_3= {
+    "resourceType": "MedicationAdministration",
+    "status": "completed",
+    "medicationReference": {
+      "reference": "Medication/B024131100"
+    },
+    "subject": {
+      "reference": "Patient/a036208d-b52c-4566-b3e1-73f8539a7204"
+    },
+    "effectivePeriod": {
+      "start": "2020-11-05",
+      "end": "2020-11-05"
+    },
+    "request": {
+      "reference": "MedicationRequest/3522"
+    },
+    "performer" : [{
+      "actor" :{
+        "reference":""
+      }
+     }],
+    "dosage": {
+      "text": "已吃一顆",
+      "route": {
+        "coding": [
+          {
+            "system": "http: //mtrsoftware.com.tw/Page_L/用法表.htm",
+            "code": "PO",
+            "display": "PO"
+          }
+        ]
+      },
+      "method": {
+        "coding": [
+          {
+            "system": "http://mtrsoftware.com.tw/Page_L/用法表.htm",
+            "code": "PO",
+            "display": "PO"
+          }
+        ]
+      },
+      "dose": {
+        "value": 1,
+        "unit": "TAB",
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TAB"
+      }
+    }
+  }
+  var Medication_Track_3 = {
+  "resourceType": "Medication",
+  "id": "MITWTrack3Medication1",
+  "code": {
+    "coding": [
+      {
+        "system": "https://www1.nhi.gov.tw/QueryN/Query1.aspx",
+        "code": "BC26968100",
+        "display": "Tagrisso F.C.Tab -80mg"
+      }
+    ],
+    "text": "泰格莎膜衣錠80毫克"
+  }
+}
