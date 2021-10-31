@@ -67,21 +67,21 @@
         <h2 class="u-text u-text-default u-text-1">Medication Request Measurement </h2>
         <p style="font-size: 25px;">
         Practitioner Id : <input type="text" id="PractitionerId_Box" name="PractitionerId_Box" style="color:black" disabled><br><br>
-        <form id="form_MR" name="form_MR" style="font-size: 20px;">
-        病人種類：
+        <form id="MedicationRequest" name="MedicationRequest" style="font-size: 20px;">
+        病人種類<font  style="color:red">*</font>：
         <select id="Patient_Type" style="color:black" name="Patient_Type">
           <option value="inpatient" style="color:black">Inpatient</option>
           <option value="outpatient" style="color:black">Body Temperature</option>
           <option value="community" style="color:black">Community</option>
           <option value="discharge" style="color:black">Discharge</option>
         </select><br>
-        藥物資訊：
-        藥物名稱：<input type="text" id="DrugName_Box" name="DrugName_Box" style="color:black" >ex:211 Metformin 500g&emsp;&emsp;
-        藥物代碼：<input type="text" id="DrugCode_Box" name="DrugCode_Box" style="color:black" >ex:AC363491G0 
+        藥物資訊<font  style="color:red">*</font>：
+        藥物名稱<font  style="color:red">*</font>：<input type="text" id="DrugName_Box" name="DrugName_Box" style="color:black" >ex:211 Metformin 500g&emsp;&emsp;
+        藥物代碼<font  style="color:red">*</font>：<input type="text" id="DrugCode_Box" name="DrugCode_Box" style="color:black" >ex:AC363491G0 
         <a href="https://www.nhi.gov.tw/QueryN/Query1.aspx">衛生福參考</a><br>
         病人Id<font  style="color:red">*</font>：<input type="text" id="Patient_Box" name="Patient_Box" style="color:black" >ex:MITWTrack2P1<br>
         建立日期<font  style="color:red">*</font>：<input type="date" id="authoredOn_Date" name="authoredOn_Date" style="color:black"><br>
-        用藥方法：
+        用藥方法<font  style="color:red">*</font>：
         <select id="Dosage_Type" style="color:black" name="Dosage_Type">
           <option value="BID" style="color:black" selected>BID</option>
           <option value="TID" style="color:black">TID</option>
@@ -102,19 +102,19 @@
         </select>
         <br>
         用藥路徑：
-        用藥部位：<input type="text" id="DrugMethodPosition_Box" name="DrugMethodPosition_Box" style="color:black" >ex:口服&emsp;&emsp;
+        用藥部位<font  style="color:red">*</font>：<input type="text" id="DrugMethodPosition_Box" name="DrugMethodPosition_Box" style="color:black" >ex:口服&emsp;&emsp;
         用藥代碼：<input type="text" id="DrugMethodCode_Box" name="DrugMethodCode_Box" style="color:black" >ex:PO 
         <a href="http://mtrsoftware.com.tw/Page_L/%E7%94%A8%E6%B3%95%E8%A1%A8.htm">參考</a><br>
-        配藥期間：
-        Start<input type="date" id="Start_Date" name="Start_Date" style="color:black">&emsp;&emsp;
-        End：<input type="date" id="End_Date" name="End_Date" style="color:black">
+        配藥期間
+        Start<font  style="color:red">*</font>：<input type="date" id="Start_Date" name="Start_Date" style="color:black">&emsp;&emsp;
+        End<font  style="color:red">*</font>：<input type="date" id="End_Date" name="End_Date" style="color:black">
         <br>
-        配藥重量：<input type="text" id="Quantity_Box" name="Quantity_Box" style="color:black" >ex:7&emsp;&emsp;
-        重量單位代碼：<input type="text" id="QuantityCode_Box" name="QuantityCode_Box" style="color:black" >ex:TAB 
+        配藥重量<font  style="color:red">*</font>：<input type="text" id="Quantity_Box" name="Quantity_Box" style="color:black" >ex:7&emsp;&emsp;
+        重量單位代碼<font  style="color:red">*</font>：<input type="text" id="QuantityCode_Box" name="QuantityCode_Box" style="color:black" >ex:TAB 
         <a href="https://terminology.hl7.org/2.1.0/CodeSystem-v3-orderableDrugForm.html">參考</a><br>
-        配藥天數：<input type="text" id="expectedSupplyDuration_Box" name="expectedSupplyDuration_Box" style="color:black" >ex:7
+        配藥天數<font  style="color:red">*</font>：<input type="text" id="expectedSupplyDuration_Box" name="expectedSupplyDuration_Box" style="color:black" >ex:7
         <br>
-        <a id="form_MR" name="form_MR_Button" onclick='Submit_Measurement(this)' class="u-active-palette-3-base u-border-1 u-border-white u-btn u-btn-round u-button-style u-grey-5 u-hover-palette-3-base u-radius-50 u-text-active-white u-text-body-color u-text-hover-white u-btn-1"></a>
+        <a id="MedicationRequest" name="MedicationRequest_Button" onclick='Submit_Measurement(this)' class="u-active-palette-3-base u-border-1 u-border-white u-btn u-btn-round u-button-style u-grey-5 u-hover-palette-3-base u-radius-50 u-text-active-white u-text-body-color u-text-hover-white u-btn-1"></a>
         </form>
         </p>
       </div>
@@ -136,9 +136,15 @@
       var Action = sessionStorage.getItem("Action");
       var ResourceId = sessionStorage.getItem("ResourceId");
       document.getElementById("PractitionerId_Box").value = Practitioner_Id;
-      document.getElementsByName("form_MR_Button")[0].innerHTML = Action;
 
-      if(Action=="Update"){
+      if(Action=="ReadOnly"){
+        document.getElementsByName("MedicationRequest_Button")[0].style.display = 'none';
+        DisableForm(document.getElementById("MedicationRequest"));
+
+      }
+      else{document.getElementsByName("MedicationRequest_Button")[0].innerHTML = Action;}
+
+      if(Action=="Update" || Action=="ReadOnly"){
         HTTPGetData(FHIRrootURL+"/MedicationRequest/"+ResourceId, manageResponseRet, 2)
       }
       //----------------------------------------------------------
@@ -152,7 +158,7 @@
           window.open("MedicationRequest.html","_self");
         }
         else if(count==2){
-          var form=document.getElementById("form_MR");
+          var form=document.getElementById("MedicationRequest");
           var elements = form.elements;
           MedicationRequest_Track_3=ret;
           elements[0].selectedOptions[0].value=MedicationRequest_Track_3.category[0].coding[0].code;
@@ -177,6 +183,15 @@
         var elements = form.elements;
         for(var i=0;i<form.length;i++){
           elements[i].value="";
+        }
+      }
+      //----------------------------------------------------------
+      //----------------------------------------------------------
+      //for : Post body weight vital sign measurement for track-2
+      function DisableForm(form){
+        var elements = form.elements;
+        for(var i=0;i<form.length;i++){
+          elements[i].disabled=true;
         }
       }
       //----------------------------------------------------------

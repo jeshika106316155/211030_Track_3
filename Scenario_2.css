@@ -5,11 +5,35 @@
 .u-section-1 .u-text-1 {
   font-weight: 700;
   font-size: 2.5rem;
-  margin: 9px auto 60px 0;
+  margin: 10px auto 60px 0;
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 487px;
+  }
 }
 
 @media (max-width: 575px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 381px;
+  }
+
   .u-section-1 .u-text-1 {
     font-size: 1.5rem;
   }
+}
+#myTable {
+  overflow: scroll;
+}
+tbody {
+  display: block;
+  max-height: 300px;
+  overflow: scroll;
+}
+
+table thead, table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
